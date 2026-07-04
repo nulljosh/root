@@ -1,10 +1,10 @@
-# root
+# Etyma
 
 Dictionary + etymology app. Killer feature: interactive etymology tree (word → Latin/Greek/PIE, cognate links).
 
 ## Stack
-- `pipeline/` — Python 3, stdlib only. Wiktionary REST API (v0) → later full dump parse. Output: `root.sqlite` (`words`, `edges` tables).
-- `ios/` — SwiftUI multiplatform via xcodegen, bundle `com.heyitsmejosh.root`, iOS + Mac targets.
+- `pipeline/` — Python 3, stdlib only. Wiktionary REST API (v0) → later full dump parse. Output: `etyma.sqlite` (`words`, `edges` tables).
+- `ios/` — SwiftUI multiplatform via xcodegen, bundle `com.heyitsmejosh.etyma`, iOS + Mac targets.
 - `web/` — static HTML for now, shared dataset.
 
 ## Data rules
