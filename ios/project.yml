@@ -1,4 +1,4 @@
-name: Root
+name: Etyma
 options:
   bundleIdPrefix: com.heyitsmejosh
 settings:
@@ -6,12 +6,12 @@ settings:
   CURRENT_PROJECT_VERSION: 1
   SWIFT_VERSION: "5.9"
 targets:
-  Root:
+  Etyma:
     type: application
     supportedDestinations: [iOS, macOS]
     sources: [Sources]
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: com.heyitsmejosh.root
+      PRODUCT_BUNDLE_IDENTIFIER: com.heyitsmejosh.etyma
       GENERATE_INFOPLIST_FILE: YES
       INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
       INFOPLIST_KEY_UILaunchScreen_Generation: YES

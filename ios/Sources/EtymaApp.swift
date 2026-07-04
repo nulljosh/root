@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct RootApp: App {
+struct EtymaApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -21,7 +21,7 @@ struct ContentView: View {
                 }
             }
             .searchable(text: $query, prompt: "Look up a word")
-            .navigationTitle("Root")
+            .navigationTitle("Etyma")
         }
     }
 }
