@@ -1,0 +1,53 @@
+# Etyma Technical Whitepaper
+
+**v0.1.0** | July 2026
+
+Etyma is a dictionary with deep etymology. Look up any word and trace it back
+through Latin, Greek, and Proto-Indo-European with an interactive etymology
+chain and cognate links. Web app plus SwiftUI iOS/Mac companion.
+
+This paper leads with the data pipeline. Everything else is supporting detail.
+
+## Etymology Graph Pipeline
+
+The core bet is that etymology data can be extracted from Wiktionary wikitext
+without an LLM and without licensed sources (no OED, no Etymonline). The
+pipeline (`pipeline/parse.py`, Python stdlib only) runs:
+
+1. **Parse** — Wiktionary dump entries are scanned for `{{inh}}`, `{{der}}`,
+   `{{bor}}`, and `{{cog}}` templates in the Etymology sections. Each template
+   yields a directed edge: word → ancestor (inherited/derived/borrowed) or
+   word ↔ cognate.
+2. **Graph** — edges accumulate into a word/language graph. Nodes carry
+   language code, script, and gloss; edges carry relation type.
+3. **Store** — the graph is written to SQLite (`etyma.sqlite`), one table for
+   words, one for edges. WordNet fills definition gaps.
+
+Chains are walked at query time by following inherit/derive edges ancestor-ward
+until they terminate (usually at a PIE root). Cognates are the sibling set of
+any node on the chain.
+
+## Lookup
+
+The shipped v1 is lookup-style: live Wiktionary API lookup with the etymology
+chain rendered inline, on web and iOS. The offline SQLite dataset is the
+long-term path; live lookup keeps the app useful before the full dump is
+processed.
+
+## Data Licensing
+
+Wiktionary content is CC-BY-SA and attributed. No OED text, no Etymonline
+text, no LLM-generated etymologies. If the graph doesn't have a real sourced
+edge, the chain ends — no synthetic ancestry.
+
+## Platforms
+
+| Platform | Stack | Notes |
+|----------|-------|-------|
+| Web | Static frontend | Shared dataset |
+| iOS / Mac | SwiftUI multiplatform, xcodegen | Live lookup + chain view |
+| Pipeline | Python 3, stdlib only | `parse.py` + `test_parse.py` |
+
+## License
+
+MIT 2026, Joshua Trommel
